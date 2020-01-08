@@ -8,6 +8,8 @@ log () {
 
 # Globals
 GIT_DIRECTORY=~/repos/dotfiles
+VIMGO_DIR=~/.vim/pack/plugins/start/vim-go
+VIMGO_GIT_REPO=https://github.com/fatih/vim-go.git
 
 # Check if git exists
 if [ -d "$GIT_DIRECTORY" ]; then
@@ -58,6 +60,21 @@ else
     elif [ ! -L ~/.profile ]; then
         log "creating symlink for ~/.profile in git repo"    
         ln -s ${GIT_DIRECTORY}/.profile ~/.profile
+    fi
+fi
+
+# Make sure vim plugins are downloaded
+if [ -d "$VIMGO_DIR" ]; then
+    log "vim-go already exists checking its up-to date"
+    git pull $VIMGO_DIR
+else
+    git clone $VIMGO_GIT_REPO $VIMGO_DIR
+    RESULT=$?
+    if [ "$RESULT" -gt 0 ]; then
+        log "Cloning $VIMGO_GIT_REPO failed. Exiting..."
+        exit 1
+    else
+        log "vim-go cloned successfully from $VIMGO_GIT_REPO"
     fi
 fi
 
