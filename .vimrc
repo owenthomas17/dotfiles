@@ -8,6 +8,10 @@ set showcmd
 set background=dark
 syntax on
 
+" Show visual 'ruler' 
+set colorcolumn=120
+highlight ColorColumn ctermbg=Green
+
 " Vim defaults
 set history=200		" keep 200 lines of command line history
 set ruler		" show the cursor position all the time
