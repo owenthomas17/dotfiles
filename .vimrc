@@ -22,6 +22,9 @@ set shiftwidth=4
 
 filetype indent on
 
+" Enable fuzzy type search with :find
+set path+=**
+
 " Show @@@ in the last line if it is truncated.
 set display=truncate
 
