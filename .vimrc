@@ -1,7 +1,10 @@
 " Setting vimpath
 set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 
+" Enable filetype plugin (:help filtype)
+filetype on
 filetype plugin indent on
+filetype indent on
 set showcmd 
 
 " Sort out colors
@@ -23,8 +26,6 @@ set tabstop=8
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-
-filetype indent on
 
 " Enable fuzzy type search with :find
 set path+=**
@@ -59,3 +60,26 @@ let g:go_info_mode='gopls'
 
 " Highlight text as you are searching
 set incsearch
+
+
+"Nice macro idea for the future
+"
+"Surround selected text in visual mode with tags or quotes and select it
+"again:
+"
+"vnoremap ;b <ESC><ESC>`<i<b><ESC>`>3la</b><ESC>`<3lv`>3l
+"
+"Explanation: 
+"<ESC><ESC>         Exit selection mode
+"`<          go to beginning of selection
+"i<b>           insert "<b>" tag
+"<ESC>          exit insert mode
+"`>           go to end of selection
+"3l           go right as many characters as you inserted before the selection
+"a</b>          append (insert after) "</b>" tag
+"<ESC>          exit insert mode
+"`<3l           go to beginning of selection + number of characters you
+"inserted 
+"v            go to visual mode
+"`>3l           select until end of selection + number of characters you
+"inserted 
