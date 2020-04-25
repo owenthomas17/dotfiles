@@ -49,6 +49,7 @@ else
     fi
 fi
 
+# Install .profile
 if [ -L ~/.profile ]; then
     log "~/.profile symlink already exists moving on..."
 else
@@ -60,6 +61,21 @@ else
     elif [ ! -L ~/.profile ]; then
         log "creating symlink for ~/.profile in git repo"    
         ln -s ${GIT_DIRECTORY}/.profile ~/.profile
+    fi
+fi
+
+# Install .tmux
+if [ -L ~/.tmux ]; then
+    log "~/.tmux symlink already exists moving on..."
+else
+    if [ -f ~/.tmux ]; then
+        log "removing ~/.tmux"
+        rm ~/.tmux
+        log "creating symlink for ~/.tmux in git repo"
+        ln -s ${GIT_DIRECTORY}/.tmux ~/.tmux
+    elif [ ! -L ~/.tmux ]; then
+        log "creating symlink for ~/.tmux in git repo"
+        ln -s ${GIT_DIRECTORY}/.tmux ~/.tmux
     fi
 fi
 
