@@ -64,18 +64,18 @@ else
     fi
 fi
 
-# Install .tmux
-if [ -L ~/.tmux ]; then
-    log "~/.tmux symlink already exists moving on..."
+# Install .tmux.conf
+if [ -L ~/.tmux.conf ]; then
+    log "~/.tmux.conf symlink already exists moving on..."
 else
-    if [ -f ~/.tmux ]; then
-        log "removing ~/.tmux"
-        rm ~/.tmux
-        log "creating symlink for ~/.tmux in git repo"
-        ln -s ${GIT_DIRECTORY}/.tmux ~/.tmux
-    elif [ ! -L ~/.tmux ]; then
-        log "creating symlink for ~/.tmux in git repo"
-        ln -s ${GIT_DIRECTORY}/.tmux ~/.tmux
+    if [ -f ~/.tmux.conf ]; then
+        log "removing ~/.tmux.conf"
+        rm ~/.tmux.conf
+        log "creating symlink for ~/.tmux.conf in git repo"
+        ln -s ${GIT_DIRECTORY}/.tmux.conf ~/.tmux.conf
+    elif [ ! -L ~/.tmux.conf ]; then
+        log "creating symlink for ~/.tmux.conf in git repo"
+        ln -s ${GIT_DIRECTORY}/.tmux.conf ~/.tmux.conf
     fi
 fi
 
