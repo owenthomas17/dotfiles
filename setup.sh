@@ -2,9 +2,8 @@
 
 # Globals
 GIT_DIRECTORY=~/repos/dotfiles
-VIMGO_DIR=~/.vim/pack/plugins/start/vim-go
-VIMGO_GIT_REPO=https://github.com/fatih/vim-go.git
-
+VIMGO_DIR="${HOME}/.vim/pack/plugins/start/vim-go"
+VIMGO_GIT_REPO="git@github.com:fatih/vim-go.git"
 log () {
     echo "$(date -u) - $1"
 }
@@ -48,10 +47,11 @@ done
 
 # Make sure vim plugins are downloaded
 if [ -d "$VIMGO_DIR" ]; then
-    log "vim-go already exists checking its up-to date"
-    git pull $VIMGO_DIR
+    log "vim-go already exists checking it's up to date in dir: ${VIMGO_DIR}"
+    git pull $VIMGO_DIR --allow-unrelated-histories --quiet
 else
-    git clone $VIMGO_GIT_REPO $VIMGO_DIR
+    log "vim-go doesn't exist in '${VIMGO_DIR}', git cloning"
+    git clone $VIMGO_GIT_REPO $VIMGO_DIR --quiet
     RESULT=$?
     if [ "$RESULT" -gt 0 ]; then
         log "Cloning $VIMGO_GIT_REPO failed. Exiting..."
