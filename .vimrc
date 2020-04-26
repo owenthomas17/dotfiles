@@ -39,6 +39,9 @@ set number
 " When scrolling show context of n lines
 set scrolloff=10
 
+" Set window size of terminal when created with :terminal
+set termwinsize=12x0
+
 " In many terminal emulators the mouse works just fine.  By enabling it you
 " can position the cursor, Visually select and scroll with the mouse.
 if has('mouse')
