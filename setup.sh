@@ -51,7 +51,7 @@ if [ -d "$VIMGO_DIR" ]; then
     git pull $VIMGO_DIR --allow-unrelated-histories --quiet
 else
     log "vim-go doesn't exist in '${VIMGO_DIR}', git cloning"
-    git clone $VIMGO_GIT_REPO $VIMGO_DIR --quiet
+    git clone ${VIMGO_GIT_REPO} ${VIMGO_DIR} --quiet
     RESULT=$?
     if [ "$RESULT" -gt 0 ]; then
         log "Cloning $VIMGO_GIT_REPO failed. Exiting..."
