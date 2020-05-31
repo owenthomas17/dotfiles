@@ -39,9 +39,6 @@ set number
 " When scrolling show context of n lines
 set scrolloff=10
 
-" Set window size of terminal when created with :terminal
-set termwinsize=12x0
-
 " In many terminal emulators the mouse works just fine.  By enabling it you
 " can position the cursor, Visually select and scroll with the mouse.
 if has('mouse')
@@ -64,6 +61,8 @@ let g:go_info_mode='gopls'
 " Highlight text as you are searching
 set incsearch
 
+" Set terminal colors
+set t_Co=256
 
 "Nice macro idea for the future
 "
