@@ -2,7 +2,33 @@ Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
-Xft.dpi:       200
+! DPI is set in multiples of 96, 96*2.5=240
+Xft.dpi:       240
+
+xterm*faceName: xft:DejaVu Sans Mono
+xterm*faceSize1: 5
+xterm*faceSize2: 6
+xterm*faceSize3: 7
+! default
+xterm*faceSize: 8
+xterm*faceSize4: 8
+xterm*faceSize5: 10
+xterm*faceSize6: 12
+
+xterm*termName: xterm-256color
+xterm*ScrollBar: false
+xterm*rightScrollBar: false
+xterm*internalBorder: 16
+
+xterm*saveLines: 10000
+
+xterm*selectToClipboard: true
+xterm*VT100.Translations: #override \
+                 Ctrl <Key>+:          larger-vt-font() \n\
+                 Ctrl <Key>-:          smaller-vt-font()
+
+! Also want `xset b off` in ~/.bashrc
+xterm*visualBell: false
 
 *.background: #1c1b1a
 
@@ -43,28 +69,3 @@ Xft.dpi:       200
 *.color7: #e2e2e5
 *.color15: #e2e2e5
 
-xterm*faceName: xft:DejaVu Sans Mono
-
-xterm*faceSize1: 5
-xterm*faceSize2: 6
-xterm*faceSize3: 7
-! default
-xterm*faceSize: 8
-xterm*faceSize4: 8
-xterm*faceSize5: 10
-xterm*faceSize6: 12
-
-xterm*termName: xterm-256color
-xterm*ScrollBar: false
-xterm*rightScrollBar: false
- xterm*internalBorder: 16
-
-xterm*selectToClipboard: true
-xterm*VT100.Translations: #override \
-                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
-                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
-                 Ctrl <Key>+:          larger-vt-font() \n\
-                 Ctrl <Key>-:          smaller-vt-font()
-
-! Also want `xset b off` in ~/.bashrc
-xterm*visualBell: false
