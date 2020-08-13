@@ -3,7 +3,8 @@
 # Globals
 GIT_DIRECTORY=~/repos/dotfiles
 VIMGO_DIR="${HOME}/.vim/pack/plugins/start/vim-go"
-VIMGO_GIT_REPO="git@github.com:fatih/vim-go.git"
+COC_DIR="${HOME}/.vim/pack/coc/start/coc.nvim-release"
+COC_RELEASE_REPO="https://github.com/neoclide/coc.nvim/archive/release.tar.gz"
 
 log () {
     echo "$(date -u) - $1"
@@ -60,4 +61,23 @@ else
     else
         log "vim-go cloned successfully from $VIMGO_GIT_REPO"
     fi
+fi
+
+if [ -d "$COC_DIR" ]; then
+    log "coc vim directory already exists, checking it's up to date in dir: ${COC_DIR}"
+    cd $COC_DIR
+    curl --fail -L ${COC_RELEASE_REPO} | tar xzfv -
+    cd ${GIT_DIRECTORY}
+else
+    log "coc vim doesn't exist in '${COC_DIR}', git cloning"
+    cd $COC_DIR
+    curl --fail -L ${COC_RELEASE_REPO} | tar xzfv -
+    RESULT=$?
+    if [ "$RESULT" -gt 0 ]; then
+        log "Downloading $COC_RELEASE_REPO failed. Exiting..."
+        exit 1
+    else
+        log "coc downloaded successfully from $COC_RELEASE_REPO"
+    fi
+    cd ${GIT_DIRECTORY}
 fi
