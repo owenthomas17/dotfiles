@@ -1,6 +1,8 @@
 " Setting vimpath
 set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 
+let g:coc_disable_startup_warning = 1
+
 " Enable filetype plugin (:help filtype)
 filetype on
 filetype plugin indent on
