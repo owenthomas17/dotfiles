@@ -3,7 +3,7 @@ Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 ! DPI is set in multiples of 96, 96*2.5=240
-Xft.dpi:       240
+Xft.dpi:       192
 
 xterm*faceName: xft:DejaVu Sans Mono
 xterm*faceSize1: 5
