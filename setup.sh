@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Globals
-GIT_DIRECTORY=~/repos/dotfiles
+GIT_DIRECTORY="${HOME}/repos/dotfiles"
 VIMGO_DIR="${HOME}/.vim/pack/plugins/start/vim-go"
 COC_DIR="${HOME}/.vim/pack/coc/start/coc.nvim-release"
 COC_RELEASE_REPO="https://github.com/neoclide/coc.nvim/archive/release.tar.gz"
