@@ -49,9 +49,20 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # Setup PS1 variable
+    PS1=''
+    # Print last exit status code
+    PS1+='($?) '
+    # Green user@home
+    PS1+='\[\033[01;32m\]\u@\h'
+    # White :
+    PS1+='\[\033[00m\]:'
+    # Blue working directory
+    PS1+='\[\033[01;34m\]\w'
+    # White $
+    PS1+='\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
