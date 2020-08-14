@@ -8,9 +8,6 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
 
 ###
 # Bash shell options
@@ -22,9 +19,13 @@ shopt -s cmdhist
 shopt -s complete_fullquote
 shopt -s dotglob
 
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+###
+# Bash variables see bash(1) for more details on configuration
+###
+
 HISTSIZE=2000
 HISTFILESIZE=2000
+HISTCONTROL=ignoreboth
 TERM=xterm-256color
 
 # set variable identifying the chroot you work in (used in the prompt below)
