@@ -41,7 +41,7 @@ create_dotfile () {
 
 # Setup symlinks into home folder
 
-DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources"
+DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors"
 
 for DOTFILE in $DOTFILES; do
     create_dotfile $DOTFILE
