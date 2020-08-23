@@ -107,6 +107,7 @@ if [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ]; then . '/home/owen/
 
 # WSL Display
 export DISPLAY=:0
+xrdb -merge .Xresources
 
 # Turn off Xorg bell notification sound
 if [ -n "$DISPLAY" ]; then
