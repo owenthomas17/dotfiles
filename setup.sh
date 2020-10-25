@@ -83,7 +83,7 @@ gitDirExists () {
 createDotfiles () {
 
     # Setup symlinks into home folder
-    DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors"
+    DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
 
     for DOTFILE in $DOTFILES; do
        createDotfile $DOTFILE
