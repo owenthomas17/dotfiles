@@ -66,6 +66,30 @@ set incsearch
 " Set terminal colors
 set t_Co=256
 
+" File explorer settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" Automatically open a file explorer when vim opens
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
+
+" Set relative line numbers
+set relativenumber
+
+" Set leader key
+let mapleader = " "
+
+" Custom leader shortcuts
+map <leader>t :bel terminal ++rows=15<CR>
+map <leader>e :Vexplore<CR>
+map <leader>q :quit<CR>
+
 "Nice macro idea for the future
 "
 "Surround selected text in visual mode with tags or quotes and select it
