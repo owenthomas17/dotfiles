@@ -89,6 +89,7 @@ let mapleader = " "
 map <leader>t :bel terminal ++rows=15<CR>
 map <leader>e :Vexplore<CR>
 map <leader>q :quit<CR>
+map <leader>d :confirm xall<CR>
 
 "Nice macro idea for the future
 "
