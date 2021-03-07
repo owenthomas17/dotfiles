@@ -108,3 +108,7 @@ if [ -n "$DISPLAY" ]; then
     xset b off
     xset r rate 400 60
 fi
+
+# Set umask, {owner,group,others}
+# 022 = rwx, rx, rx
+umask 022
