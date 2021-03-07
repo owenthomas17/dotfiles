@@ -77,6 +77,7 @@ let g:netrw_winsize = 25
 augroup ProjectDrawer
   autocmd!
   autocmd VimEnter * :Vexplore
+  autocmd VimEnter * :wincmd w
 augroup END
 
 " Set relative line numbers
