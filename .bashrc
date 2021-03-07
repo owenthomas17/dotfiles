@@ -103,6 +103,8 @@ if [ $SHLVL -eq 1 ]; then
 fi
 
 # Turn off Xorg bell notification sound
+# Set repeat rate, xset r rate <delay> <persec>
 if [ -n "$DISPLAY" ]; then
     xset b off
+    xset r rate 400 60
 fi
