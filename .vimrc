@@ -73,13 +73,6 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
-" Automatically open a file explorer when vim opens
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore
-  autocmd VimEnter * :wincmd w
-augroup END
-
 " Set relative line numbers
 set relativenumber
 
