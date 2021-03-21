@@ -98,8 +98,10 @@ if [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ]; then . '/home/owen/
 
 # WSL Display
 if [ $SHLVL -eq 1 ]; then
-    export DISPLAY=:0
-    xrdb -merge .Xresources
+    if [ -z "$SSH_TTY" ]; then
+        export DISPLAY=:0
+        xrdb -merge .Xresources
+    fi
 fi
 
 # Turn off Xorg bell notification sound
