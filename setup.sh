@@ -33,6 +33,12 @@ createDotfile () {
 
 installVimPlugins () {
 
+    # Create .vim dir if it doesn't exist
+    if [ ! -d ${HOME}/.vim ]; then
+        log "${HOME}/.vim directory doesn't exist. Creating it"
+        mkdir -p ${HOME}/.vim
+    fi
+
     # Make sure vim plugins are downloaded
     if [ -d "$VIMGO_DIR" ]; then
         log "vim-go already exists checking it's up to date in dir: ${VIMGO_DIR}"
