@@ -97,7 +97,7 @@ if [ -f '/home/owen/google-cloud-sdk/path.bash.inc' ]; then . '/home/owen/google
 if [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ]; then . '/home/owen/google-cloud-sdk/completion.bash.inc'; fi
 
 # WSL Display
-if [ $SHLVL -eq 1 ] && [ $WSL_DISTRO_NAME == "Debian" ]; then
+if [ $SHLVL -eq 1 ] && [ -n $WSL_DISTRO_NAME ]; then
     if [ -z "$SSH_TTY" ]; then
         export DISPLAY=:0
         xrdb -merge .Xresources
