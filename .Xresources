@@ -1,5 +1,6 @@
+!!!
 ! Urxvt settings
-
+!!!
 URxvt.font: xft:DejaVu Sans Mono:size=9
 URxvt.iso14755: false
 URxvt.iso14755_52: false
@@ -14,6 +15,9 @@ URxvt.keysym.Control-Left: \033[1;5D
 URxvt.copyCommand: xclip -i -selection clipboard
 URxvt.pasteCommand: xclip -o -selection clipboard
 
+!!!
+! Xft settings
+!!!
 Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
@@ -21,6 +25,9 @@ Xft.hintstyle: hintfull
 ! DPI is set in multiples of 96, 96*2.5=240
 Xft.dpi:       170
 
+!!!
+! Xterm settings
+!!!
 xterm*faceName: xft:DejaVu Sans Mono
 xterm*faceSize1: 5
 xterm*faceSize2: 6
@@ -30,14 +37,11 @@ xterm*faceSize: 8
 xterm*faceSize4: 8
 xterm*faceSize5: 10
 xterm*faceSize6: 12
-
 xterm*termName: xterm-256color
 xterm*ScrollBar: false
 xterm*rightScrollBar: false
 xterm*internalBorder: 16
-
 xterm*saveLines: 10000
-
 xterm*selectToClipboard: true
 xterm*VT100.Translations: #override \
                  Ctrl <Key>+:          larger-vt-font() \n\
@@ -46,6 +50,9 @@ xterm*VT100.Translations: #override \
 ! Also want `xset b off` in ~/.bashrc
 xterm*visualBell: false
 
+!!!
+! Global settings
+!!!
 *.background: #1c1b1a
 
 ! special
