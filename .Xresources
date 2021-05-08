@@ -1,9 +1,25 @@
+! Urxvt settings
+
+URxvt.font: xft:DejaVu Sans Mono:size=9
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt.title: Ows Terminal
+URxvt.saveLines: 20000
+URxvt.scrollBar_right: True
+URxvt.perl-ext-common: default,font-size
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+
 Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 ! DPI is set in multiples of 96, 96*2.5=240
-Xft.dpi:       192
+Xft.dpi:       170
 
 xterm*faceName: xft:DejaVu Sans Mono
 xterm*faceSize1: 5
