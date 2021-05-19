@@ -1,21 +1,12 @@
-" Setting vimpath
-set runtimepath=~/.vim,/usr/share/vim/vim81,~/.vim/after
+" Set runtime path
+set runtimepath=~/.vim,/usr/share/vim/vim81
 
-let g:coc_disable_startup_warning = 1
-
-" Enable filetype plugin (:help filtype)
-filetype on
-filetype plugin indent on
-filetype indent on
-set showcmd 
-
-" Sort out colors
+" Use Gruvbox
+autocmd vimenter * nested colorscheme gruvbox
 set background=dark
-syntax on
 
 " Show visual 'ruler' 
 set colorcolumn=120
-highlight ColorColumn ctermbg=Green
 
 " Vim defaults
 set history=200		" keep 200 lines of command line history
@@ -23,17 +14,14 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set wildmenu		" display completion matches in a status line
 
-" Setting tabbing for python/go files
-set tabstop=8
-set expandtab
-set softtabstop=4
-set shiftwidth=4
-
 " Enable fuzzy type search with :find
 set path+=**
 
 " Show @@@ in the last line if it is truncated.
 set display=truncate
+
+" Set relative line numbers
+set relativenumber
 
 " Show line numbers
 set number
@@ -56,10 +44,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" 
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-
 " Highlight text as you are searching
 set incsearch
 
@@ -73,9 +57,6 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
-" Set relative line numbers
-set relativenumber
-
 " Set leader key
 let mapleader = " "
 
@@ -84,25 +65,11 @@ map <leader>t :bel terminal ++rows=15<CR>
 map <leader>e :Vexplore<CR>
 map <leader>q :quit<CR>
 map <leader>d :confirm xall<CR>
+map <leader>gd :ALEGoToDefinition<CR>
 
-"Nice macro idea for the future
-"
-"Surround selected text in visual mode with tags or quotes and select it
-"again:
-"
-"vnoremap ;b <ESC><ESC>`<i<b><ESC>`>3la</b><ESC>`<3lv`>3l
-"
-"Explanation: 
-"<ESC><ESC>         Exit selection mode
-"`<          go to beginning of selection
-"i<b>           insert "<b>" tag
-"<ESC>          exit insert mode
-"`>           go to end of selection
-"3l           go right as many characters as you inserted before the selection
-"a</b>          append (insert after) "</b>" tag
-"<ESC>          exit insert mode
-"`<3l           go to beginning of selection + number of characters you
-"inserted 
-"v            go to visual mode
-"`>3l           select until end of selection + number of characters you
-"inserted 
+"Use gopls 
+let g:ale_linters = {
+  \ 'go': ['gopls'],
+  \ 'python': ['pyls'],
+  \}
+
