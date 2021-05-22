@@ -4,8 +4,6 @@
 GIT_DIRECTORY="${HOME}/repos/dotfiles"
 VIMGO_DIR="${HOME}/.vim/pack/plugins/start/vim-go"
 VIMGO_GIT_REPO="git@github.com:fatih/vim-go.git"
-COC_DIR="${HOME}/.vim/pack/coc/start/coc.nvim-release"
-COC_RELEASE_REPO="https://github.com/neoclide/coc.nvim/archive/release.tar.gz"
 VIM_POLYGLOT_DIR="${HOME}/.vim/pack/plugins/start/vim-polyglot"
 VIM_POLYGLOT_REPO="https://github.com/sheerun/vim-polyglot"
 VIM_ALE_REPO="https://github.com/dense-analysis/ale.git"
