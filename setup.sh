@@ -9,7 +9,7 @@ COC_RELEASE_REPO="https://github.com/neoclide/coc.nvim/archive/release.tar.gz"
 VIM_POLYGLOT_DIR="${HOME}/.vim/pack/plugins/start/vim-polyglot"
 VIM_POLYGLOT_REPO="https://github.com/sheerun/vim-polyglot"
 VIM_ALE_REPO="https://github.com/dense-analysis/ale.git"
-VIM_ALE_DIR="${HOME}/vim/pack/plugins/start/ale"
+VIM_ALE_DIR="${HOME}/.vim/pack/plugins/start/ale"
 VIM_GRUVBOX_DIR_REPO="https://github.com/morhetz/gruvbox.git"
 VIM_GRUVBOX_DIR="${HOME}/.vim/pack/default/start/gruvbox"
 
@@ -46,6 +46,20 @@ installLanguageServers () {
         pip3 install python-language-server
     else
         log "Python language server already installed"
+    fi
+
+    local TMP_TF_DIR=/tmp/terraform-lsp
+    which terraform-lsp > /dev/null
+    TERRAFORM_LSP_INSTALLED=$?
+    if [ $TERRAFORM_LSP_INSTALLED -eq 1 ]; then
+        log "Installing Terraform language server"
+        mkdir $TMP_TF_DIR
+        wget --quiet --directory-prefix $TMP_TF_DIR https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.12/terraform-lsp_0.0.12_linux_amd64.tar.gz
+        tar xfv $TMP_TF_DIR/terraform-lsp_0.0.12_linux_amd64.tar.gz --directory $TMP_TF_DIR
+        cp $TMP_TF_DIR/terraform-lsp $HOME/.local/bin
+        rm -rf $TMP_TF_DIR
+    else
+        log "Terraform language server already installed"
     fi
 
 }
