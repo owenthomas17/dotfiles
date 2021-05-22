@@ -67,9 +67,14 @@ map <leader>q :quit<CR>
 map <leader>d :confirm xall<CR>
 map <leader>gd :ALEGoToDefinition<CR>
 
-"Use gopls 
+"Use the following linters. Linters need to be enabled in order for
+"go-to-definition to work correctly
 let g:ale_linters = {
   \ 'go': ['gopls'],
   \ 'python': ['pyls'],
+  \ 'terraform': ['terraform_lsp'],
   \}
 
+" Enable omni complete but trigger manually. Default key combination is
+" <C-x><C-o>
+set omnifunc=ale#completion#OmniFunc
