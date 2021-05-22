@@ -1,15 +1,16 @@
 #!/bin/bash
 
 # Globals
+# Directories
 GIT_DIRECTORY="${HOME}/repos/dotfiles"
-VIMGO_DIR="${HOME}/.vim/pack/plugins/start/vim-go"
-VIMGO_GIT_REPO="git@github.com:fatih/vim-go.git"
 VIM_POLYGLOT_DIR="${HOME}/.vim/pack/plugins/start/vim-polyglot"
+VIM_ALE_DIR="${HOME}/.vim/pack/plugins/start/ale"
+VIM_GRUVBOX_DIR="${HOME}/.vim/pack/default/start/gruvbox"
+
+# Git URLs
 VIM_POLYGLOT_REPO="https://github.com/sheerun/vim-polyglot"
 VIM_ALE_REPO="https://github.com/dense-analysis/ale.git"
-VIM_ALE_DIR="${HOME}/.vim/pack/plugins/start/ale"
 VIM_GRUVBOX_DIR_REPO="https://github.com/morhetz/gruvbox.git"
-VIM_GRUVBOX_DIR="${HOME}/.vim/pack/default/start/gruvbox"
 
 log () {
     echo "$(date -u) - $1"
