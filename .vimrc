@@ -10,9 +10,9 @@ set colorcolumn=120
 
 " Vim defaults
 set history=200   " keep 200 lines of command line history
-set ruleri        " show the cursor position all the time
+set ruler        " show the cursor position all the time
 set showcmd       " display incomplete commands
-set wildmenui     " display completion matches in a status line
+set wildmenu     " display completion matches in a status line
 
 " Enable fuzzy type search with :find
 set path+=**
