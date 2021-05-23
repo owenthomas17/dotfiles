@@ -49,23 +49,28 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    # Setup PS1 variable
-    PS1=''
-    # Print last exit status code
-    PS1+='($?) '
-    # Green user@home
-    PS1+='\[\033[01;32m\]\u@\h'
-    # White :
-    PS1+='\[\033[00m\]:'
-    # Blue working directory
-    PS1+='\[\033[01;34m\]\w'
-    # White $
-    PS1+='\[\033[00m\]\$ '
-else
-    PS1='\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+set_ps1 () {
+
+    if [ "$color_prompt" = yes ]; then
+        . /etc/bash_completion.d/git-prompt
+        __GREEN="\\[\\033[01;32m\\]"
+        __WHITE="\\[\\033[00m\\]"
+        __BLUE="\\[\\033[01;34m\\]"
+        __GIT_BRANCH="\$(__git_ps1)"
+        __EXIT_CODE="(\$?)"
+        __USER_AND_HOST="$__GREEN\\u@\\h"
+        __WORKING_DIRECTORY="$__BLUE\\w"
+        __COLON="$__WHITE:"
+        __DOLLAR="$__WHITE$"
+        PS1="$__GIT_BRANCH$__EXIT_CODE $__USER_AND_HOST$__COLON$__WORKING_DIRECTORY$__DOLLAR "
+    else
+        PS1='\u@\h:\w\$ '
+    fi
+    unset color_prompt force_color_prompt
+
+}
+
+set_ps1
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
