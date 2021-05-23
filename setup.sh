@@ -38,7 +38,7 @@ createDotfile () {
 
 installLanguageServers () {
 
-    which pyls > /dev/null
+    command -v pyls > /dev/null
     PYLS_INSTALLED=$?
     if [ $PYLS_INSTALLED -eq 1 ]; then
         log "Installing python language server"
@@ -48,7 +48,7 @@ installLanguageServers () {
     fi
 
     local TMP_TF_DIR=/tmp/terraform-lsp
-    which terraform-lsp > /dev/null
+    command -v terraform-lsp > /dev/null
     TERRAFORM_LSP_INSTALLED=$?
     if [ $TERRAFORM_LSP_INSTALLED -eq 1 ]; then
         log "Installing Terraform language server"
