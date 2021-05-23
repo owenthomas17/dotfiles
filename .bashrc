@@ -1,3 +1,4 @@
+#!/bin/bash
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -81,7 +82,7 @@ fi
 # Alias definitions.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    . "$HOME"/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -102,7 +103,7 @@ if [ -f '/home/owen/google-cloud-sdk/path.bash.inc' ]; then . '/home/owen/google
 if [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ]; then . '/home/owen/google-cloud-sdk/completion.bash.inc'; fi
 
 # WSL Display
-if [ $SHLVL -eq 1 ] && [ -n $WSL_DISTRO_NAME ]; then
+if [ $SHLVL -eq 1 ] && [ -n "$WSL_DISTRO_NAME" ]; then
     if [ -z "$SSH_TTY" ]; then
         export DISPLAY=:0
         xrdb -merge .Xresources
