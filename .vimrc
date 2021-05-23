@@ -9,10 +9,10 @@ set background=dark
 set colorcolumn=120
 
 " Vim defaults
-set history=200		" keep 200 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set wildmenu		" display completion matches in a status line
+set history=200   " keep 200 lines of command line history
+set ruleri        " show the cursor position all the time
+set showcmd       " display incomplete commands
+set wildmenui     " display completion matches in a status line
 
 " Enable fuzzy type search with :find
 set path+=**
@@ -41,7 +41,7 @@ endif
 " Revert with: ":delcommand DiffOrig".
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+      \ | wincmd p | diffthis
 endif
 
 " Highlight text as you are searching
