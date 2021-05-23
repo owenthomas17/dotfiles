@@ -25,12 +25,12 @@ createDotfile () {
     else
         if [ -f "$DOTFILE" ]; then
             log "removing $DOTFILE"
-            rm $DOTFILE
+            rm "$DOTFILE"
             log "creating symlink for $DOTFILE in git repo"
-            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE
+            ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
         elif [ ! -L "$DOTFILE" ]; then
             log "creating symlink for $DOTFILE in git repo"
-            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE
+            ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
         fi
     fi
 
@@ -55,7 +55,7 @@ installLanguageServers () {
         mkdir $TMP_TF_DIR
         wget --quiet --directory-prefix $TMP_TF_DIR https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.12/terraform-lsp_0.0.12_linux_amd64.tar.gz
         tar xfv $TMP_TF_DIR/terraform-lsp_0.0.12_linux_amd64.tar.gz --directory $TMP_TF_DIR
-        cp $TMP_TF_DIR/terraform-lsp $HOME/.local/bin
+        cp "$TMP_TF_DIR"/terraform-lsp "$HOME"/.local/bin
         rm -rf $TMP_TF_DIR
     else
         log "Terraform language server already installed"
@@ -65,31 +65,31 @@ installLanguageServers () {
 
 installVimPlugins () {
     # Create .vim dir if it doesn't exist
-    if [ ! -d ${HOME}/.vim ]; then
+    if [ ! -d "${HOME}"/.vim ]; then
         log "${HOME}/.vim directory doesn't exist. Creating it"
-        mkdir -p ${HOME}/.vim
+        mkdir -p "${HOME}"/.vim
     fi
 
     # Install color scheme
-    if [ ! -d ${VIM_GRUVBOX_DIR} ]; then
+    if [ ! -d "${VIM_GRUVBOX_DIR}" ]; then
         log "Installing gruvbox"
-        git clone ${VIM_GRUVBOX_DIR_REPO} ${VIM_GRUVBOX_DIR}
+        git clone "${VIM_GRUVBOX_DIR_REPO}" "${VIM_GRUVBOX_DIR}"
     else
         log "gruvbox already installed at ${VIM_GRUVBOX_DIR}"
     fi
 
 
     # Install Syntax highlighting
-    if [ ! -d ${VIM_POLYGLOT_DIR} ]; then
+    if [ ! -d "${VIM_POLYGLOT_DIR}" ]; then
         log "Installing vim-polyglot"
-        git clone --depth 1 ${VIM_POLYGLOT_REPO} ${VIM_POLYGLOT_DIR}
+        git clone --depth 1 "${VIM_POLYGLOT_REPO}" "${VIM_POLYGLOT_DIR}"
     else
         log "vim-polyglot already installed at ${VIM_POLYGLOT_DIR}"
     fi
 
-    if [ ! -d ${VIM_ALE_DIR} ]; then
+    if [ ! -d "${VIM_ALE_DIR}" ]; then
         log "Installing vim ale"
-        git clone --depth 1 ${VIM_ALE_REPO} ${VIM_ALE_DIR}
+        git clone --depth 1 "${VIM_ALE_REPO}" "${VIM_ALE_DIR}"
     else
         log "Ale already installed at ${VIM_ALE_DIR}"
     fi
@@ -113,7 +113,7 @@ createDotfiles () {
     DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
 
     for DOTFILE in $DOTFILES; do
-       createDotfile $DOTFILE
+       createDotfile "$DOTFILE"
     done
 
 }
