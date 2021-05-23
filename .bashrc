@@ -51,27 +51,47 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 set_ps1 () {
+    local __PREVIOUS_EXIT_CODE="$?"
 
-    if [ "$color_prompt" = yes ]; then
-        . /etc/bash_completion.d/git-prompt
-        __GREEN="\\[\\033[01;32m\\]"
-        __WHITE="\\[\\033[00m\\]"
-        __BLUE="\\[\\033[01;34m\\]"
-        __GIT_BRANCH="\$(__git_ps1|xargs)"
-        __EXIT_CODE="(\$?)"
-        __USER_AND_HOST="$__GREEN\\u@\\h"
-        __WORKING_DIRECTORY="$__BLUE\\w"
-        __COLON="$__WHITE:"
-        __DOLLAR="$__WHITE$"
-        PS1="$__GIT_BRANCH$__EXIT_CODE $__USER_AND_HOST$__COLON$__WORKING_DIRECTORY$__DOLLAR "
+    # Colors
+    local __GREEN="\\[\\033[01;32m\\]"
+    local __BLUE="\\[\\033[01;34m\\]"
+    local __RED="\\e[0;31m"
+    local __RESET="\\e[0m"
+
+    # Prompt Components
+    local __USER_AND_HOST="$__GREEN\\u@\\h$__RESET"
+    local __WORKING_DIRECTORY="$__BLUE\\w$__RESET"
+    local __EXIT_CODE=""
+    local __GIT_BRANCH=""
+
+    # Set color based on exit code status
+    if [ $__PREVIOUS_EXIT_CODE -eq 0 ]; then
+        __EXIT_CODE="($__GREEN$__PREVIOUS_EXIT_CODE$__RESET)"
     else
-        PS1='\u@\h:\w\$ '
+        __EXIT_CODE="($__RED$__PREVIOUS_EXIT_CODE$__RESET)"
     fi
-    unset color_prompt force_color_prompt
+
+    # Source git-prompt bash completion if it hasn't already been
+    __CURENT_BRANCH="$(__git_ps1)"
+    __GIT_PS1_EXIT_CODE="$?"
+
+    if [ "$__GIT_PS1_EXIT_CODE" -gt 0 ]; then
+        . /etc/bash_completion.d/git-prompt
+    fi
+
+    # Set color of git branch
+    if [[ $__CURENT_BRANCH =~ "master" ]]; then
+        __GIT_BRANCH="$__RED$__CURENT_BRANCH$__RESET"
+    else
+        __GIT_BRANCH="$__GREEN$__CURENT_BRANCH$__RESET"
+    fi
+
+    PS1="$__EXIT_CODE$__GIT_BRANCH $__USER_AND_HOST:$__WORKING_DIRECTORY$ "
 
 }
 
-set_ps1
+PROMPT_COMMAND=set_ps1
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
