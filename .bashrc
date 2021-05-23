@@ -56,7 +56,7 @@ set_ps1 () {
         __GREEN="\\[\\033[01;32m\\]"
         __WHITE="\\[\\033[00m\\]"
         __BLUE="\\[\\033[01;34m\\]"
-        __GIT_BRANCH="\$(__git_ps1)"
+        __GIT_BRANCH="\$(__git_ps1|xargs)"
         __EXIT_CODE="(\$?)"
         __USER_AND_HOST="$__GREEN\\u@\\h"
         __WORKING_DIRECTORY="$__BLUE\\w"
