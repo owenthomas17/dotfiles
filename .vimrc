@@ -5,7 +5,7 @@ set runtimepath=~/.vim,/usr/share/vim/vim81
 autocmd vimenter * nested colorscheme gruvbox
 set background=dark
 
-" Show visual 'ruler' 
+" Show visual 'ruler'
 set colorcolumn=120
 
 " Vim defaults
@@ -88,3 +88,6 @@ packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+
+set list
+set listchars=trail:¬
