@@ -78,6 +78,7 @@ set_ps1 () {
 
     if [ "$__GIT_PS1_EXIT_CODE" -gt 0 ]; then
         . /etc/bash_completion.d/git-prompt
+        __CURENT_BRANCH="$(__git_ps1)"
     fi
 
     # Set color of git branch
