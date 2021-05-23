@@ -26,11 +26,11 @@ createDotfile () {
         if [ -f "$DOTFILE" ]; then
             log "removing $DOTFILE"
             rm $DOTFILE
-            log "creating symlink for $DOTFILE in git repo"    
-            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE 
+            log "creating symlink for $DOTFILE in git repo"
+            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE
         elif [ ! -L "$DOTFILE" ]; then
-            log "creating symlink for $DOTFILE in git repo"    
-            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE 
+            log "creating symlink for $DOTFILE in git repo"
+            ln -s ${GIT_DIRECTORY}/${GIT_DOTFILE} $DOTFILE
         fi
     fi
 
