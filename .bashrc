@@ -54,10 +54,10 @@ set_ps1 () {
     local __PREVIOUS_EXIT_CODE="$?"
 
     # Colors
-    local __GREEN="\\[\\033[01;32m\\]"
-    local __BLUE="\\[\\033[01;34m\\]"
-    local __RED="\\e[0;31m"
-    local __RESET="\\e[0m"
+    local __GREEN="\\[\\033[32m\\]"
+    local __BLUE="\\[\\033[34m\\]"
+    local __RED="\\[\\033[31m\\]"
+    local __RESET="\\[\\033[0m\\]"
 
     # Prompt Components
     local __USER_AND_HOST="$__GREEN\\u@\\h$__RESET"
