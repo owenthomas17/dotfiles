@@ -10,53 +10,26 @@ case $- in
 esac
 
 
-###
 # Bash shell options
-###
-
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s cmdhist
 shopt -s complete_fullquote
 shopt -s dotglob
 
-###
 # Bash variables see bash(1) for more details on configuration
-###
-
 HISTSIZE=2000
 HISTFILESIZE=2000
 HISTCONTROL=ignoreboth
 TERM=xterm-256color
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-
 set_ps1 () {
     local __PREVIOUS_EXIT_CODE="$?"
 
     # Colors
-    local __GREEN="\\[\\033[32m\\]"
-    local __BLUE="\\[\\033[34m\\]"
-    local __RED="\\[\\033[31m\\]"
+    local __GREEN="\\[\\033[01;32m\\]"
+    local __BLUE="\\[\\033[01;34m\\]"
+    local __RED="\\[\\033[01;31m\\]"
     local __RESET="\\[\\033[0m\\]"
 
     # Prompt Components
@@ -101,10 +74,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # Alias definitions.
-
-if [ -f ~/.bash_aliases ]; then
-    . "$HOME"/.bash_aliases
-fi
+[ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -117,11 +87,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/owen/google-cloud-sdk/path.bash.inc' ]; then . '/home/owen/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ]; then . '/home/owen/google-cloud-sdk/completion.bash.inc'; fi
+# Google cloud bashrc, including updating path for SDK and for shell completion
+[ -f '/home/owen/google-cloud-sdk/path.bash.inc' ] && . '/home/owen/google-cloud-sdk/path.bash.inc'
+[ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ] && . '/home/owen/google-cloud-sdk/completion.bash.inc'
 
 # WSL Display
 if [ $SHLVL -eq 1 ] && [ -n "$WSL_DISTRO_NAME" ]; then
