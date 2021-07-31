@@ -124,6 +124,7 @@ main () {
     createDotfiles
     installLanguageServers
     installVimPlugins
+    mkdir -p "$HOME"/.local/bin
 }
 
 main
