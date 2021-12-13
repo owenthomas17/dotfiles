@@ -91,8 +91,8 @@ fi
 [ -f '/home/owen/google-cloud-sdk/path.bash.inc' ] && . '/home/owen/google-cloud-sdk/path.bash.inc'
 [ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ] && . '/home/owen/google-cloud-sdk/completion.bash.inc'
 
-# WSL Display
-if [ $SHLVL -eq 1 ] && [ -n "$WSL_DISTRO_NAME" ]; then
+# Xterm display
+if [ -z $WSLENV ]; then
     if [ -z "$SSH_TTY" ]; then
         export DISPLAY=:0
         xrdb -merge .Xresources
