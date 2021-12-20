@@ -1,5 +1,5 @@
 " Set runtime path
-set runtimepath=~/.vim,/usr/share/vim/vim81
+set runtimepath=~/.vim,/usr/share/vim/vim82
 
 " Use Gruvbox
 autocmd vimenter * nested colorscheme gruvbox
@@ -89,5 +89,4 @@ packloadall
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-set list
 set listchars=trail:¬
