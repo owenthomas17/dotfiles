@@ -18,8 +18,8 @@ shopt -s complete_fullquote
 shopt -s dotglob
 
 # Bash variables see bash(1) for more details on configuration
-HISTSIZE=2000
-HISTFILESIZE=2000
+HISTSIZE=20000
+HISTFILESIZE=20000
 HISTCONTROL=ignoreboth
 TERM=xterm-256color
 
@@ -75,6 +75,7 @@ fi
 
 # Alias definitions.
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
+[ -f "$HOME"/.local/bin ] && . export $PATH=$PATH:$HOME/.local/bin
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -93,17 +94,14 @@ fi
 
 # Xterm display
 if [ -z $WSLENV ]; then
-    if [ -z "$SSH_TTY" ]; then
+    if [ -n $SSH_TTY ]; then
         export DISPLAY=:0
         xrdb -merge .Xresources
+        # Turn off Xorg bell notification sound
+        # Set repeat rate, xset r rate <delay> <persec>
+        xset b off
+        xset r rate 400 60
     fi
-fi
-
-# Turn off Xorg bell notification sound
-# Set repeat rate, xset r rate <delay> <persec>
-if [ -n "$DISPLAY" ]; then
-    xset b off
-    xset r rate 400 60
 fi
 
 # Set umask, {owner,group,others}
