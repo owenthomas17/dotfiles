@@ -3,6 +3,7 @@
 # Globals
 # Directories
 GIT_DIRECTORY="${HOME}/repos/dotfiles"
+MANAGED_DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
 
 # Git URLs
 
@@ -42,29 +43,52 @@ gitDirExists () {
 }
 
 createDotfiles () {
-
     # Setup symlinks into home folder
-    DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
-
-    for DOTFILE in $DOTFILES; do
+    for DOTFILE in $MANAGED_DOTFILES; do
        createDotfile "$DOTFILE"
     done
 
 }
 
 installSystemDependencies () {
-    sudo apt install python3-pip
+    log "Installing missing system dependencies..."
+    if ! command -v pip3 > /dev/null; then
+        log "Installing python3-pip because it hasn't been found"
+        sudo apt install python3-pip -y
+    fi
+    log "pip3 exists, moving on..."
 }
 
+setupEditor() {
+    log "Setting up the editor"
+
+    title="Select an editor to configure: "
+    prompt="Enter the number of name of editor you'd like to configure: "
+    options=("vim" "nvim" "none")
+
+    echo "$title"
+    PS3="$prompt "
+    select opt in "${options[@]}"; do
+        case "$REPLY" in
+        1) echo "Installing $opt...";bash setup-vim.sh; break;;
+        vim) echo "Installing $opt...";bash setup-vim.sh; break;;
+        2) echo "Installing $opt...";bash setup-nvim.sh; break;;
+        nvim) echo "Installing $opt...";bash setup-nvim.sh; break;;
+        3) echo "Not configuring an editor...";break;;
+        none) echo "Not configuring an editor...";break;;
+        *) echo "Invalid option. Try another one.";continue;;
+        esac
+    done
+
+}
 
 main () {
-    source setup-vim.sh
     installSystemDependencies
     gitDirExists
     createDotfiles
-    installLanguageServers
-    installVimPlugins
+    setupEditor
     mkdir -p "$HOME"/.local/bin
+    log "Setup is complete"
 }
 
 main

@@ -73,3 +73,9 @@ installVimPlugins () {
 
 }
 
+main () {
+    installLanguageServers
+    installVimPlugins
+}
+
+main
