@@ -53,10 +53,16 @@ createDotfiles () {
 installSystemDependencies () {
     log "Installing missing system dependencies..."
     if ! command -v pip3 > /dev/null; then
-        log "Installing python3-pip because it hasn't been found"
+        log "Installing python3-pip because it hasn't been found..."
         sudo apt install python3-pip -y
     fi
     log "pip3 exists, moving on..."
+
+    if [ ! -f /usr/share/bash-completion/bash_completion ]; then
+        log "Installing bash-completion because it hasn't been found..."
+        sudo apt install bash-completion -y
+    fi
+    log "bash-completion exists, moving on..."
 }
 
 setupEditor() {
