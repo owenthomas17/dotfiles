@@ -65,8 +65,52 @@ installSystemDependencies () {
     log "bash-completion exists, moving on..."
 }
 
+usage () {
+
+    cat <<USAGE
+
+Usage: $0 [-e, --setup-editor Text editor] [-h, --help This menu]
+
+Options:
+    -e, --setup-editor:   Valid options: vim,nvim,none
+    -h, --help:  This help menu
+USAGE
+    exit 0
+}
+
+processFlags () {
+    while [ "$1" != "" ]; do
+        case $1 in
+        -e | --setup-editor)
+            shift
+            SETUP_EDITOR=$1
+            ;;
+        -h | --help)
+            usage
+        esac
+        shift
+    done
+}
+
 setupEditor() {
     log "Setting up the editor"
+
+    if [[ $SETUP_EDITOR == "vim" ]]; then
+        log "Installing $SETUP_EDITOR ..."
+        bash setup-vim.sh
+        return
+    fi
+
+    if [[ $SETUP_EDITOR == "nvim" ]]; then
+        log "Installing $SETUP_EDITOR ..."
+        bash setup-nvim.sh
+        return
+    fi
+
+    if [[ $SETUP_EDITOR == "none" ]]; then
+        log "Not configuring any editor..."
+        return
+    fi
 
     title="Select an editor to configure: "
     prompt="Enter the number of name of editor you'd like to configure: "
@@ -89,12 +133,15 @@ setupEditor() {
 }
 
 main () {
+    processFlags $ARGS
     installSystemDependencies
     gitDirExists
     createDotfiles
     setupEditor
+    log "Creating local bin directory $HOME/.local/bin"
     mkdir -p "$HOME"/.local/bin
     log "Setup is complete"
 }
 
+ARGS=$@
 main
