@@ -17,11 +17,13 @@ createDotfile () {
     local DOTFILE="$HOME/${1}"
     local GIT_DOTFILE=$1
 
+    # Already a symlink?
     if [ -L "$DOTFILE" ]; then
         log "$DOTFILE symlink already exists moving on..."
 	return
     fi
 
+    # Already a regular unmanaged file
     if [ -f "$DOTFILE" ]; then
         log "removing $DOTFILE"
         rm "$DOTFILE"
