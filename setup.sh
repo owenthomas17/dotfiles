@@ -74,7 +74,7 @@ usage () {
 Usage: $0 [-e, --setup-editor Text editor] [-h, --help This menu]
 
 Options:
-    -e, --setup-editor:   Valid options: vim,nvim,none
+    -e, --setup-editor:   Valid options: vim,nvim,none. If not specified an interactive menu will be presented to make the choice.
     -h, --help:  This help menu
 USAGE
     exit 0
