@@ -2,7 +2,9 @@
 
 # Globals
 # Directories
-GIT_DIRECTORY="${HOME}/repos/dotfiles"
+# Small trick to always resolve the path to where the setup.sh script lives
+SOURCE=${BASH_SOURCE[0]}
+GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 MANAGED_DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
 
 # Git URLs
