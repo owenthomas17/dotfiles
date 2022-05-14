@@ -149,5 +149,4 @@ main () {
 }
 
 ARGS=$@
-echo $ARGS
 main
