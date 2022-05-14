@@ -127,15 +127,27 @@ setupEditor() {
 
 }
 
+setupLocalBin() {
+    local BIN_DIR="${HOME}/.local/bin"
+    
+    if [[ -d ${BIN_DIR} ]]; then
+        log "${BIN_DIR} already exists, moving on..."
+	return
+    fi 
+
+    log "Creating local bin directory ${BIN_DIR}"
+    mkdir -p "${BIN_DIR}"
+}
+
 main () {
     processFlags $ARGS
     installSystemDependencies
     createDotfiles
     setupEditor
-    log "Creating local bin directory $HOME/.local/bin"
-    mkdir -p "$HOME"/.local/bin
+    setupLocalBin
     log "Setup is complete"
 }
 
 ARGS=$@
+echo $ARGS
 main
