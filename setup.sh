@@ -37,17 +37,6 @@ createDotfile () {
 
 }
 
-
-gitDirExists () {
-    # Check if git exists
-    if [ -d "$GIT_DIRECTORY" ]; then
-        log "Git repo is present, continuing setup"
-    else
-        log "Git repo is not present. The dotfiles repo should be cloned to ~/repos/, exiting..."
-        exit 1
-    fi
-}
-
 createDotfiles () {
     # Setup symlinks into home folder
     for DOTFILE in $MANAGED_DOTFILES; do
@@ -141,7 +130,6 @@ setupEditor() {
 main () {
     processFlags $ARGS
     installSystemDependencies
-    gitDirExists
     createDotfiles
     setupEditor
     log "Creating local bin directory $HOME/.local/bin"
