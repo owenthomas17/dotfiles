@@ -19,7 +19,7 @@ createDotfile () {
 
     # Already a symlink?
     if [ -L "$DOTFILE" ]; then
-        log "$DOTFILE symlink already exists moving on..."
+        log "$DOTFILE symlink already exists, moving on..."
 	return
     fi
 
