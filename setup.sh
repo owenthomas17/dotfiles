@@ -58,6 +58,11 @@ installSystemDependencies () {
         sudo apt install bash-completion -y
     fi
     log "bash-completion exists, moving on..."
+
+    if ! command -v tmux -V > /dev/null; then
+	log "Installing tmux because it hasn't been found..."
+	sudo apt install tmux
+    fi
 }
 
 usage () {
