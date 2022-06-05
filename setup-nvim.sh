@@ -22,7 +22,13 @@ downloadNvim() {
 
 	log "Validating sha256..."
 	cd /tmp
-	sha256sum -c "${NVIM_DEBIAN_PACKAGE_SHA_FILEPATH}" || log "Checksum failed, please try re-downloading the file"; exit 1
+	sha256sum -c "${NVIM_DEBIAN_PACKAGE_SHA_FILEPATH}"
+
+        if [[ $? -gt 0 ]]; then
+            log "Checksum failed, please try re-downloading the file"
+            exit 1
+        fi
+
 	cd "${WORKDIR}"
 	log "sha256 validated and correct..."
 }
@@ -46,6 +52,10 @@ installDotfile() {
     local DOTFILE="$HOME/.config/nvim/init.lua"
     local GIT_DOTFILE="init.lua"
     local GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+    log "Making nvim config directory if it doesn't already exist: ${HOME}/.config/nvim"
+
+    mkdir -p "${HOME}/.config/nvim"
 
     log "Creating symlink for dotfile if needed"
 
@@ -93,8 +103,8 @@ installPlugins() {
 
 main () {
     if ! detectPreviousInstall; then
-	downloadNvim
-	installNvim
+        downloadNvim
+        installNvim
     fi
 
     installDotfile
