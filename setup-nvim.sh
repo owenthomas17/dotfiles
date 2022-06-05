@@ -25,7 +25,7 @@ downloadNvim() {
 	sha256sum -c "${NVIM_DEBIAN_PACKAGE_SHA_FILEPATH}"
 
         if [[ $? -gt 0 ]]; then
-            log "Checksum failed, please try re-downloading the file"
+            log "Checksum failed, please try re-downloading the file..."
             exit 1
         fi
 
@@ -36,13 +36,13 @@ downloadNvim() {
 cleanupFiles() {
     log "Removing all temporary files"
     for file in "${NVIM_DEBIAN_PACKAGE_FILEPATH}" "${NVIM_DEBIAN_PACKAGE_SHA_FILEPATH}"; do
-	    log "Removing ${file}"
+	    log "Removing ${file} ..."
 	    rm -rf "${file}"
     done
 }
 
 installNvim() {
-    log "Installing nvim from debian package"
+    log "Installing nvim from debian package..."
     sudo apt-get -qq install "${NVIM_DEBIAN_PACKAGE_FILEPATH}"
     log "Installed nvim correctly"
     cleanupFiles
@@ -53,11 +53,11 @@ installDotfile() {
     local GIT_DOTFILE="init.lua"
     local GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
-    log "Making nvim config directory if it doesn't already exist: ${HOME}/.config/nvim"
+    log "Making nvim config directory if it doesn't already exist: ${HOME}/.config/nvim..."
 
     mkdir -p "${HOME}/.config/nvim"
 
-    log "Creating symlink for dotfile if needed"
+    log "Creating symlink for dotfile if needed..."
 
     # Already a symlink?
     if [ -L "$DOTFILE" ]; then
@@ -67,14 +67,14 @@ installDotfile() {
 
     # Already a regular unmanaged file
     if [ -f "$DOTFILE" ]; then
-        log "removing $DOTFILE"
+        log "removing $DOTFILE ..."
         rm "$DOTFILE"
-        log "creating symlink for $DOTFILE in git repo"
+        log "Creating symlink for $DOTFILE in git repo..."
         ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
 	return
     fi
 
-    log "creating symlink for $DOTFILE in git repo"
+    log "Creating symlink for $DOTFILE in git repo..."
     ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
 }
 
