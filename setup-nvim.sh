@@ -48,9 +48,15 @@ installNvim() {
     cleanupFiles
 }
 
+installDotfiles() {
+	for file in ls *.lua; do
+		installDotfile $file
+	done
+}
+
 installDotfile() {
-    local DOTFILE="$HOME/.config/nvim/init.lua"
-    local GIT_DOTFILE="init.lua"
+    local DOTFILE="$HOME/.config/nvim/$1"
+    local GIT_DOTFILE="$1"
     local GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
     log "Making nvim config directory if it doesn't already exist: ${HOME}/.config/nvim..."
@@ -129,7 +135,7 @@ main () {
         installNvim
     fi
 
-    installDotfile
+    installDotfiles
     installPlugins
 
     log "Installation complete..."
