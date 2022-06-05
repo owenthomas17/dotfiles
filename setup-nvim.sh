@@ -95,9 +95,28 @@ detectPreviousInstall() {
     return 0
 }
 
+installWin32Yank() {
+	mkdir /tmp/win32yank-dl
+	log "Downloading and unzipping win32yank to /tmp/win32yank-dl ..."
+	curl --silent -fLo /tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+	unzip -d /tmp/win32yank-dl /tmp/win32yank.zip
+	chmod +x /tmp/win32yank-dl/win32yank.exe
+
+	log "Copying win32yank.exe to ${HOME}/.local/bin/win32yank.exe..."
+	cp -f /tmp/win32yank-dl/win32yank.exe "${HOME}/.local/bin/win32yank.exe"
+
+	log "Cleaning up /tmp/win32yank-dl"
+	rm -rf /tmp/win32yank-dl
+}
+
 installPlugins() {
 	log "Downloading vim-plug..."
 	curl --silent -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+	if grep WSL2 /proc/version; then
+		log "Detected running in WSL2..."
+		installWin32Yank
+	fi
 
 	# sourced from: https://github.com/junegunn/vim-plug/issues/675
 	log "Installing plugins..."

@@ -19,18 +19,21 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 vim.cmd([[autocmd vimenter * ++nested colorscheme gruvbox]])
 
-vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlf"
-  },
-  paste = {
-    ["+"] = "win32yank.exe -o --crlf",
-    ["*"] = "win32yank.exe -o --crlf"
-  },
-  cache_enable = 0,
-}
+isWsl = string.match("/proc/version", "WSL2")
+if not isWsl == nil then
+    vim.g.clipboard = {
+      name = "win32yank-wsl",
+      copy = {
+        ["+"] = "win32yank.exe -i --crlf",
+        ["*"] = "win32yank.exe -i --crlf"
+      },
+      paste = {
+        ["+"] = "win32yank.exe -o --crlf",
+        ["*"] = "win32yank.exe -o --crlf"
+      },
+      cache_enable = 0,
+    }
+end
 
 -- Custom mappings
 
