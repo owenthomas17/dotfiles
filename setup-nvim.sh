@@ -48,13 +48,19 @@ installDotfile() {
 
 detectPreviousInstall() {
     local CURRENT_NVIM_VERSION=$(nvim -v | head -n1 | awk '{print $2}')
-    if [[ $CURRENT_NVIM_VERSION == $NVIM_VERSION ]]; then
-	    log "Skipping new nvim installation because nvim has been detected as already installed, and at the desired version: ${NVIM_VERSION}"
-	    return 0
+
+    if [[ $? -gt 0 ]]; then
+	log "Nvim installation not found. Proceeding to install..."
+	return 1
     fi
 
-    log "Nvim not found, or doesn't match desired version"
-    return 1
+    if [[ $CURRENT_NVIM_VERSION != $NVIM_VERSION ]]; then
+	log "Nvim doesn't match desired version"
+	return 1
+    fi
+
+    log "Skipping new nvim installation because nvim has been detected as already installed, and at the desired version: ${NVIM_VERSION}"
+    return 0
 }
 
 main () {
@@ -62,6 +68,7 @@ main () {
 	downloadNvim
 	installNvim
     fi
+
     installDotfile
 }
 
