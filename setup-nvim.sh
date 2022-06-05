@@ -43,7 +43,29 @@ installNvim() {
 }
 
 installDotfile() {
-    ln -s init.lua "$DOTFILE"
+    local DOTFILE="$HOME/.config/nvim/init.lua"
+    local GIT_DOTFILE="init.lua"
+    local GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+    log "Creating symlink for dotfile if needed"
+
+    # Already a symlink?
+    if [ -L "$DOTFILE" ]; then
+        log "$DOTFILE symlink already exists, moving on..."
+	return
+    fi
+
+    # Already a regular unmanaged file
+    if [ -f "$DOTFILE" ]; then
+        log "removing $DOTFILE"
+        rm "$DOTFILE"
+        log "creating symlink for $DOTFILE in git repo"
+        ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
+	return
+    fi
+
+    log "creating symlink for $DOTFILE in git repo"
+    ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
 }
 
 detectPreviousInstall() {
