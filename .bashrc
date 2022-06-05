@@ -107,3 +107,6 @@ fi
 # Set umask, {owner,group,others}
 # 022 = rwx, rx, rx
 umask 022
+
+# Add custom go location to path
+export PATH=~/.local/bin/go/bin:$PATH
