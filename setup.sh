@@ -34,7 +34,6 @@ createDotfile () {
 
     log "creating symlink for $DOTFILE in git repo"
     ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
-
 }
 
 createDotfiles () {
@@ -42,7 +41,6 @@ createDotfiles () {
     for DOTFILE in $MANAGED_DOTFILES; do
        createDotfile "$DOTFILE"
     done
-
 }
 
 installSystemDependencies () {
@@ -62,6 +60,11 @@ installSystemDependencies () {
     if ! command -v tmux -V > /dev/null; then
 	log "Installing tmux because it hasn't been found..."
 	sudo apt install tmux
+    fi
+
+    if ! command -v gopls version > /dev/null; then
+	log "Installing gopls"
+	sudo apt install gopls
     fi
 }
 
