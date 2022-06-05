@@ -78,7 +78,7 @@ installDotfile() {
     ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
 
     log "Copying lua modules directory..."
-    cp -f lua/ "${HOME}/.config/nvim"
+    cp -rf lua/ "${HOME}/.config/nvim"
 }
 
 detectPreviousInstall() {
