@@ -48,7 +48,8 @@ vim.keymap.set('n', '<A-j>', '<C-w>j')
 vim.keymap.set('n', '<A-k>', '<C-w>k')
 vim.keymap.set('n', '<A-l>', '<C-w>l')
 
-require('plugins')
+-- Lua imports suck. In order to get some kind of relative import, I had to create a directory called lua inside of which lives a directory called plugins with its own init.lua.
+require("plugins")
 
 local lsp = require('lspconfig')
 lsp.gopls.setup {}

@@ -48,15 +48,9 @@ installNvim() {
     cleanupFiles
 }
 
-installDotfiles() {
-	for file in ls *.lua; do
-		installDotfile $file
-	done
-}
-
 installDotfile() {
-    local DOTFILE="$HOME/.config/nvim/$1"
-    local GIT_DOTFILE="$1"
+    local DOTFILE="$HOME/.config/nvim/init.lua"
+    local GIT_DOTFILE="init.lua"
     local GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
     log "Making nvim config directory if it doesn't already exist: ${HOME}/.config/nvim..."
@@ -82,6 +76,9 @@ installDotfile() {
 
     log "Creating symlink for $DOTFILE in git repo..."
     ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
+
+    log "Copying lua modules directory..."
+    cp -f lua/ "${HOME}/.config/nvim"
 }
 
 detectPreviousInstall() {
@@ -126,7 +123,7 @@ installPlugins() {
 
 	# sourced from: https://github.com/junegunn/vim-plug/issues/675
 	log "Installing plugins..."
-	nvim --headless --noplugin -u install.lua +PlugInstall +qa
+	nvim --headless --noplugin -u lua/plugins/init.lua +PlugInstall +qa
 }
 
 main () {
@@ -135,7 +132,7 @@ main () {
         installNvim
     fi
 
-    installDotfiles
+    installDotfile
     installPlugins
 
     log "Installation complete..."
