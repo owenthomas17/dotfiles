@@ -85,6 +85,12 @@ detectPreviousInstall() {
     return 0
 }
 
+installPlugins() {
+	# sourced from: https://github.com/junegunn/vim-plug/issues/675
+	log "Installing plugins..."
+	nvim --headless +PlugInstall +qa
+}
+
 main () {
     if ! detectPreviousInstall; then
 	downloadNvim
@@ -92,6 +98,9 @@ main () {
     fi
 
     installDotfile
+    installPlugins
+
+    log "Installation complete..."
 }
 
 main
