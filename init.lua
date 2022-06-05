@@ -48,15 +48,7 @@ vim.keymap.set('n', '<A-j>', '<C-w>j')
 vim.keymap.set('n', '<A-k>', '<C-w>k')
 vim.keymap.set('n', '<A-l>', '<C-w>l')
 
--- lua version of vim script VimPlug
-local Plug = vim.fn['plug#']
-
-vim.call('plug#begin')
-Plug('nvim-treesitter/nvim-treesitter')
-Plug('neovim/nvim-lspconfig')
-Plug('morhetz/gruvbox')
-vim.call('plug#end')
-
+require('plugins')
 
 local lsp = require('lspconfig')
 lsp.gopls.setup {}
