@@ -60,17 +60,17 @@ installDotfile() {
     log "Creating symlink for dotfile if needed..."
 
     # Already a symlink?
-    if [ -L "$DOTFILE" ]; then
-        log "$DOTFILE symlink already exists, moving on..."
+    if [ -L "${DOTFILE}" ]; then
+        log "${DOTFILE} symlink already exists, moving on..."
 	return
     fi
 
     # Already a regular unmanaged file
-    if [ -f "$DOTFILE" ]; then
+    if [ -f "${DOTFILE}" ]; then
         log "removing $DOTFILE ..."
-        rm "$DOTFILE"
+        rm "${DOTFILE}"
         log "Creating symlink for $DOTFILE in git repo..."
-        ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
+        ln -s "${GIT_DIRECTORY}/${GIT_DOTFILE}" "$DOTFILE"
 	return
     fi
 
@@ -121,8 +121,12 @@ installPlugins() {
 		installWin32Yank
 	fi
 
-	# sourced from: https://github.com/junegunn/vim-plug/issues/675
 	log "Installing plugins..."
+	# Go dependency required for nvim-dap, install go's debugger: Delve
+	go install github.com/go-delve/delve/cmd/dlv@latest
+
+	# Get nvim to install all of its plugins
+	# sourced from: https://github.com/junegunn/vim-plug/issues/675
 	nvim --headless --noplugin -u lua/plugins/init.lua +PlugInstall +qa
 }
 
