@@ -166,10 +166,6 @@ require('go').setup({
 })
 
 
-if not os.getenv("SSH_CONNECTION") then
-	return
-end
-
 -- https://neovim.discourse.group/t/how-can-i-customize-clipboard-provider-using-lua/2564/2
 local function should_add(event)
 	local length = #event.regcontents - 1
