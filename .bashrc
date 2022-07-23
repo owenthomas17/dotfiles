@@ -88,22 +88,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Google cloud bashrc, including updating path for SDK and for shell completion
-[ -f '/home/owen/google-cloud-sdk/path.bash.inc' ] && . '/home/owen/google-cloud-sdk/path.bash.inc'
-[ -f '/home/owen/google-cloud-sdk/completion.bash.inc' ] && . '/home/owen/google-cloud-sdk/completion.bash.inc'
-
-# Xterm display
-if [ -z $WSLENV ]; then
-    if [ -n $SSH_TTY ]; then
-        export DISPLAY=:0
-        xrdb -merge .Xresources
-        # Turn off Xorg bell notification sound
-        # Set repeat rate, xset r rate <delay> <persec>
-        xset b off
-        xset r rate 400 60
-    fi
-fi
-
 # Set umask, {owner,group,others}
 # 022 = rwx, rx, rx
 umask 022
