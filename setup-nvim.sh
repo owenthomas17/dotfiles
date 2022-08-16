@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NVIM_VERSION="v0.7.0"
+NVIM_VERSION="v0.7.2"
 NVIM_DEBIAN_PACKAGE_LINK="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux64.deb"
 NVIM_DEBIAN_PACKAGE_SHA_LINK="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux64.deb.sha256sum"
 NVIM_DEBIAN_PACKAGE_FILEPATH="/tmp/nvim-linux64.deb"
