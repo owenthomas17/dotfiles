@@ -62,10 +62,7 @@ installSystemDependencies () {
 	sudo apt install tmux
     fi
 
-    if ! command -v gopls version > /dev/null; then
-	log "Installing gopls"
-	sudo apt install gopls
-    fi
+    source setup-golang.sh
 }
 
 usage () {
