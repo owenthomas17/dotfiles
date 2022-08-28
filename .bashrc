@@ -110,3 +110,14 @@ umask 022
 
 # Add custom go location to path
 export PATH=~/.local/bin/go/bin:$PATH
+
+# Start tmux if not already
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	if ! tmux ls | grep "(attached)"; then
+		if ! tmux attach; then
+		  tmux new-session -s dev -n shell -d
+		  tmux new-window -n vim -c ${HOME}/repos
+		  tmux attach -t dev
+		fi
+	fi
+fi
