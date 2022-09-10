@@ -18,7 +18,8 @@ vim.o.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 vim.cmd([[autocmd vimenter * ++nested colorscheme gruvbox]])
-vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+-- Not working properly for now, so disabling
+--vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
 isWsl = string.match("/proc/version", "WSL2")
 if not isWsl == nil then
@@ -185,10 +186,12 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	pattern = "*",
 	callback = function()
 		local event = vim.v.event
-		if should_add(event) then
-			local joined = vim.fn.join(event.regcontents, "\n")
-			local based = vim.fn.system("base64 | tr -d '\n'", joined)
-			vim.fn.chansend(vim.v.stderr, vim.fn.printf("\x1b]52;;%s\x1b\\", based))
+		if event.operator == 'y' then
+			if should_add(event) then
+				local joined = vim.fn.join(event.regcontents, "\n")
+				local based = vim.fn.system("base64 | tr -d '\n'", joined)
+				vim.fn.chansend(vim.v.stderr, vim.fn.printf("\x1b]52;;%s\x1b\\", based))
+			end
 		end
 	end,
 	once = false,
