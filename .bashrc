@@ -33,20 +33,26 @@ set_ps1 () {
     local __RESET="\\[\\033[0m\\]"
 
     # Prompt Components
-    local __USER_AND_HOST="$__GREEN\\u@\\h$__RESET"
+    local __USER="$__GREEN\\u$__RESET"
+    local __HOST="$__GREEN\\h$__RESET"
     local __WORKING_DIRECTORY="$__BLUE\\w$__RESET"
     local __EXIT_CODE=""
     local __GIT_BRANCH=""
+    local __VITRUAL_ENV_PROMPT=""
+
+    if [ ! -z $VIRTUAL_ENV_PROMPT ]; then
+        __VITRUAL_ENV_PROMPT="venv=$__GREEN$VIRTUAL_ENV_PROMPT$__RESET"
+    fi
 
     # Set color based on exit code status
     if [ $__PREVIOUS_EXIT_CODE -eq 0 ]; then
-        __EXIT_CODE="($__GREEN$__PREVIOUS_EXIT_CODE$__RESET)"
+        __EXIT_CODE="rc=$__GREEN($__PREVIOUS_EXIT_CODE)$__RESET"
     else
-        __EXIT_CODE="($__RED$__PREVIOUS_EXIT_CODE$__RESET)"
+        __EXIT_CODE="rc=$__RED($__PREVIOUS_EXIT_CODE)$__RESET"
     fi
 
     # Source git-prompt bash completion if it hasn't already been
-    __CURENT_BRANCH="$(__git_ps1)"
+    __CURENT_BRANCH="$(printf $(__git_ps1))"
     __GIT_PS1_EXIT_CODE="$?"
 
     if [ "$__GIT_PS1_EXIT_CODE" -gt 0 ]; then
@@ -56,12 +62,12 @@ set_ps1 () {
 
     # Set color of git branch
     if [[ $__CURENT_BRANCH =~ "master" ]]; then
-        __GIT_BRANCH="$__RED$__CURENT_BRANCH$__RESET"
+        __GIT_BRANCH="branch=$__RED$__CURENT_BRANCH$__RESET"
     else
-        __GIT_BRANCH="$__GREEN$__CURENT_BRANCH$__RESET"
+        __GIT_BRANCH="branch=$__GREEN$__CURENT_BRANCH$__RESET"
     fi
 
-    PS1="$__EXIT_CODE$__GIT_BRANCH $__USER_AND_HOST:$__WORKING_DIRECTORY\n$ "
+    PS1="$__VITRUAL_ENV_PROMPT$__EXIT_CODE $__GIT_BRANCH user=$__USER host=$__HOST pwd=$__WORKING_DIRECTORY\n$ "
 
 }
 
