@@ -51,20 +51,22 @@ set_ps1 () {
         __EXIT_CODE="rc=$__RED($__PREVIOUS_EXIT_CODE)$__RESET"
     fi
 
-    # Source git-prompt bash completion if it hasn't already been
-    __CURENT_BRANCH="$(printf $(__git_ps1))"
-    __GIT_PS1_EXIT_CODE="$?"
-
-    if [ "$__GIT_PS1_EXIT_CODE" -gt 0 ]; then
+    if ! command -v __git_ps1 &> /dev/null ; then
         . /etc/bash_completion.d/git-prompt
-        __CURENT_BRANCH="$(__git_ps1)"
+    fi
+
+    local __CURRENT_BRANCH=$(__git_ps1)
+
+    # Strip leading/trailing spaces
+    if [ ! -z $__CURRENT_BRANCH ]; then
+        __CURRENT_BRANCH=$(printf $__CURRENT_BRANCH)
     fi
 
     # Set color of git branch
-    if [[ $__CURENT_BRANCH =~ "master" ]]; then
-        __GIT_BRANCH="branch=$__RED$__CURENT_BRANCH$__RESET"
+    if [[ $__CURRENT_BRANCH =~ (master|main) ]]; then
+        __GIT_BRANCH="branch=$__RED$__CURRENT_BRANCH$__RESET"
     else
-        __GIT_BRANCH="branch=$__GREEN$__CURENT_BRANCH$__RESET"
+        __GIT_BRANCH="branch=$__GREEN$__CURRENT_BRANCH$__RESET"
     fi
 
     PS1="$__VITRUAL_ENV_PROMPT$__EXIT_CODE $__GIT_BRANCH user=$__USER host=$__HOST pwd=$__WORKING_DIRECTORY\n$ "
