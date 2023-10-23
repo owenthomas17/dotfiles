@@ -137,11 +137,15 @@ setupLocalBin() {
     
     if [[ -d ${BIN_DIR} ]]; then
         log "${BIN_DIR} already exists, moving on..."
-	return
+        return
     fi 
 
     log "Creating local bin directory ${BIN_DIR}"
     mkdir -p "${BIN_DIR}"
+}
+
+installTerraform() {
+    source ./install-terraform.sh
 }
 
 main () {
@@ -150,6 +154,7 @@ main () {
     createDotfiles
     setupEditor
     setupLocalBin
+    installTerraform
     log "Setup is complete"
 }
 
