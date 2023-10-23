@@ -63,7 +63,7 @@ set_ps1 () {
     fi
 
     # Set color of git branch
-    if [[ $__CURRENT_BRANCH =~ (master|main) ]]; then
+    if [[ $__CURRENT_BRANCH =~ (master|main|develop) ]]; then
         __GIT_BRANCH="branch=$__RED$__CURRENT_BRANCH$__RESET"
     else
         __GIT_BRANCH="branch=$__GREEN$__CURRENT_BRANCH$__RESET"
