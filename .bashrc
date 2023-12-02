@@ -21,7 +21,7 @@ shopt -s dotglob
 HISTSIZE=20000
 HISTFILESIZE=20000
 HISTCONTROL=ignoreboth
-TERM=xterm-256color
+TERM=tmux-256color
 
 set_ps1 () {
     local __PREVIOUS_EXIT_CODE="$?"
@@ -38,24 +38,24 @@ set_ps1 () {
     local __WORKING_DIRECTORY="$__BLUE\\w$__RESET"
     local __EXIT_CODE=""
     local __GIT_BRANCH=""
+    local __CURRENT_BRANCH=$(__git_ps1)
     local __VITRUAL_ENV_PROMPT=""
+    local __TIME_NOW=$__GREEN$(date +'%H:%M:%S')$__RESET
 
     if [ ! -z $VIRTUAL_ENV_PROMPT ]; then
-        __VITRUAL_ENV_PROMPT="venv=$__GREEN$VIRTUAL_ENV_PROMPT$__RESET"
+        __VITRUAL_ENV_PROMPT="$__GREEN$VIRTUAL_ENV_PROMPT$__RESET"
     fi
 
     # Set color based on exit code status
     if [ $__PREVIOUS_EXIT_CODE -eq 0 ]; then
-        __EXIT_CODE="rc=$__GREEN($__PREVIOUS_EXIT_CODE)$__RESET"
+        __EXIT_CODE="$__GREEN($__PREVIOUS_EXIT_CODE)$__RESET"
     else
-        __EXIT_CODE="rc=$__RED($__PREVIOUS_EXIT_CODE)$__RESET"
+        __EXIT_CODE="$__RED($__PREVIOUS_EXIT_CODE)$__RESET"
     fi
 
     if ! command -v __git_ps1 &> /dev/null ; then
         . /etc/bash_completion.d/git-prompt
     fi
-
-    local __CURRENT_BRANCH=$(__git_ps1)
 
     # Strip leading/trailing spaces
     if [ ! -z $__CURRENT_BRANCH ]; then
@@ -64,12 +64,12 @@ set_ps1 () {
 
     # Set color of git branch
     if [[ $__CURRENT_BRANCH =~ (master|main|develop) ]]; then
-        __GIT_BRANCH="branch=$__RED$__CURRENT_BRANCH$__RESET"
+        __GIT_BRANCH="$__RED$__CURRENT_BRANCH$__RESET"
     else
-        __GIT_BRANCH="branch=$__GREEN$__CURRENT_BRANCH$__RESET"
+        __GIT_BRANCH="$__GREEN$__CURRENT_BRANCH$__RESET"
     fi
 
-    PS1="$__VITRUAL_ENV_PROMPT$__EXIT_CODE $__GIT_BRANCH user=$__USER host=$__HOST pwd=$__WORKING_DIRECTORY\n$ "
+    PS1="user=${__USER} host=${__HOST} time=${__TIME_NOW} rc=${__EXIT_CODE} branch=${__GIT_BRANCH:=no_git} venv=${__VITRUAL_ENV_PROMPT} pwd=${__WORKING_DIRECTORY}\n$ "
 
 }
 
