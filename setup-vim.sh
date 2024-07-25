@@ -32,7 +32,7 @@ installLanguageServers () {
         mkdir $TMP_TF_DIR
         wget --quiet --directory-prefix $TMP_TF_DIR https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.12/terraform-lsp_0.0.12_linux_amd64.tar.gz
         tar xfv $TMP_TF_DIR/terraform-lsp_0.0.12_linux_amd64.tar.gz --directory $TMP_TF_DIR
-        cp "$TMP_TF_DIR"/terraform-lsp "$HOME"/.local/bin
+        cp "$TMP_TF_DIR"/terraform-lsp "$HOME"/.local/bin/
         rm -rf $TMP_TF_DIR
     else
         log "Terraform language server already installed"
