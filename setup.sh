@@ -5,7 +5,18 @@
 # Small trick to always resolve the path to where the setup.sh script lives
 SOURCE=${BASH_SOURCE[0]}
 GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-MANAGED_DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh htoprc"
+declare -A MANAGED_DOTFILES
+MANAGED_DOTFILES=(
+    [".bashrc"]="$HOME/.bashrc"
+    [".vimrc"]="$HOME/.vimrc"
+    [".profile"]="$HOME/.profile"
+    [".tmux.conf"]="$HOME/.tmux.conf"
+    [".Xresources"]="$HOME/.Xresources"
+    [".dircolors"]="$HOME/.dircolors"
+    ["tmux-start.sh"]="$HOME/tmux-start.sh"
+    ["htoprc"]="$HOME/.config/htop/htoprc"
+)
+
 
 # Git URLs
 
@@ -14,37 +25,38 @@ log () {
 }
 
 createDotfile () {
-    local DOTFILE="$HOME/${1}"
-    local GIT_DOTFILE=$1
+    local DOTFILE=$1
+    local DOTFILE_PATH=$2
+    local DOTFILE_DIR=${DOTFILE_PATH%/*}
 
-    if [ $GIT_DOTFILE == "htoprc" ]; then
-        DOTFILE="$HOME/.config/htop/${1}"
-        mkdir -p ${DOTFILE%/*}
+    if [ ! -d $DOTFILE_DIR ]; then
+        log "Creating dotfile directory $DOTFILE_DIR"
+        mkdir -p $DOTFILE_DIR
     fi
 
     # Already a symlink?
-    if [ -L "$DOTFILE" ]; then
-        log "$DOTFILE symlink already exists, moving on..."
-	      return
-    fi
-
-    # Already a regular unmanaged file
-    if [ -f "$DOTFILE" ]; then
-        log "removing $DOTFILE"
-        rm "$DOTFILE"
-        log "creating symlink for $DOTFILE in git repo"
-        ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
+    if [ -L "${DOTFILE_PATH}" ]; then
+        log "${DOTFILE_PATH} symlink already exists, moving on..."
 	      return
     fi
 
     log "creating symlink for $DOTFILE in git repo"
-    ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
+    ln -s "${GIT_DIRECTORY}"/"${DOTFILE}" "$DOTFILE_PATH"
+
+    # Already a regular unmanaged file
+    if [ -f "$DOTFILE_PATH" ]; then
+        log "removing $DOTFILE_PATH"
+        rm "$DOTFILE_PATH"
+        log "creating symlink for $DOTFILE_PATH in git repo"
+        ln -s "${GIT_DIRECTORY}"/"${DOTFILE}" "$DOTFILE_PATH"
+	      return
+    fi
 }
 
 createDotfiles () {
     # Setup symlinks into home folder
-    for DOTFILE in $MANAGED_DOTFILES; do
-       createDotfile "$DOTFILE"
+    for d in "${!MANAGED_DOTFILES[@]}"; do
+       createDotfile $d ${MANAGED_DOTFILES[$d]}
     done
 }
 
@@ -53,18 +65,22 @@ installSystemDependencies () {
     if ! command -v pip3 > /dev/null; then
         log "Installing python3-pip because it hasn't been found..."
         sudo apt install python3-pip -y
+    else
+        log "pip3 exists, moving on..."
     fi
-    log "pip3 exists, moving on..."
 
     if [ ! -f /usr/share/bash-completion/bash_completion ]; then
         log "Installing bash-completion because it hasn't been found..."
         sudo apt install bash-completion -y
+    else
+        log "bash-completion exists, moving on..."
     fi
-    log "bash-completion exists, moving on..."
 
     if ! command -v tmux -V > /dev/null; then
-	log "Installing tmux because it hasn't been found..."
-	sudo apt install tmux
+        log "Installing tmux because it hasn't been found..."
+        sudo apt install tmux
+    else
+        log "tmux exists, moving on..."
     fi
 
     source setup-golang.sh
