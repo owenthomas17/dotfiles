@@ -1,7 +1,14 @@
 #!/bin/bash
-set -e 
+set -euo pipefail
 
 TERRAFORM_VERSION=1.6.2
+
+if command -v terraform; then
+	if terraform version | grep --silent $TERRAFORM_VERSION; then
+		echo "Previous terraform install detected and at the expected version: $TERRAFORM_VERSION"
+		return
+	fi
+fi
 
 echo ########
 echo Installing terraform
