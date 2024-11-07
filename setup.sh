@@ -40,17 +40,15 @@ createDotfile () {
 	      return
     fi
 
+    # Already a regular unmanaged file
+    if [ -f "$DOTFILE_PATH" ]; then
+        log "Found an unmanaged dotfile, removing $DOTFILE_PATH"
+        rm "$DOTFILE_PATH"
+    fi
+
     log "creating symlink for $DOTFILE in git repo"
     ln -s "${GIT_DIRECTORY}"/"${DOTFILE}" "$DOTFILE_PATH"
 
-    # Already a regular unmanaged file
-    if [ -f "$DOTFILE_PATH" ]; then
-        log "removing $DOTFILE_PATH"
-        rm "$DOTFILE_PATH"
-        log "creating symlink for $DOTFILE_PATH in git repo"
-        ln -s "${GIT_DIRECTORY}"/"${DOTFILE}" "$DOTFILE_PATH"
-	      return
-    fi
 }
 
 createDotfiles () {
