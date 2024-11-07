@@ -5,7 +5,7 @@
 # Small trick to always resolve the path to where the setup.sh script lives
 SOURCE=${BASH_SOURCE[0]}
 GIT_DIRECTORY=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-MANAGED_DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh"
+MANAGED_DOTFILES=".bashrc .vimrc .profile .tmux.conf .Xresources .dircolors tmux-start.sh htoprc"
 
 # Git URLs
 
@@ -17,10 +17,15 @@ createDotfile () {
     local DOTFILE="$HOME/${1}"
     local GIT_DOTFILE=$1
 
+    if [ $GIT_DOTFILE == "htoprc" ]; then
+        DOTFILE="$HOME/.config/htop/${1}"
+        mkdir -p ${DOTFILE%/*}
+    fi
+
     # Already a symlink?
     if [ -L "$DOTFILE" ]; then
         log "$DOTFILE symlink already exists, moving on..."
-	return
+	      return
     fi
 
     # Already a regular unmanaged file
@@ -29,7 +34,7 @@ createDotfile () {
         rm "$DOTFILE"
         log "creating symlink for $DOTFILE in git repo"
         ln -s "${GIT_DIRECTORY}"/"${GIT_DOTFILE}" "$DOTFILE"
-	return
+	      return
     fi
 
     log "creating symlink for $DOTFILE in git repo"
